@@ -20,7 +20,19 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
-      }
+      },
+      {
+        test: /\.(woff2|jpg|jpeg|png|svg)(\?.*)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'dist/fonts'
+            }
+          }
+        ]
+      },
     ]
   },
   plugins: [
