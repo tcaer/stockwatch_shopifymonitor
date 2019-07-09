@@ -6,15 +6,15 @@ import Loadable from 'react-loadable';
 import GatedRoute from './components/routes/GatedRoute';
 
 const SignupPageLoadable = Loadable({
-  loader: () => import('./pages/Signup'),
+  loader: () => import('./pages/signup/Signup'),
   loading: () => (<div>Loading...</div>)
 });
 const LoginPageLoadable = Loadable({
-  loader: () => import('./pages/Login'),
+  loader: () => import('./pages/login/Login'),
   loading: () => (<div>Loading...</div>)
 })
 const DashboardPageLodable = Loadable({
-  loader: () => import('./pages/Dashboard'),
+  loader: () => import('./pages/dashboard/Dashboard'),
   loading: () => (<div>Loading...</div>)
 });
 
@@ -45,7 +45,7 @@ class App extends Component {
 }
 
 const isUserLoggedIn = (user) => {
-  return user.info != null;
+  return user.jwt != null;
 }
 
 const mapStateToProps = state => {

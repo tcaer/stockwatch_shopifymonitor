@@ -4,7 +4,8 @@ import { connectRouter } from 'connected-react-router';
 import { 
   FETCH_USER,
   RECEIVE_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SET_JWT
 } from './actions';
 
 function user(state = {
@@ -20,7 +21,6 @@ function user(state = {
     case RECEIVE_USER:
       return Object.assign({}, state, {
         info: action.user,
-        jwt: action.jwt,
         isFetching: false
       });
     case LOGOUT_USER:
@@ -29,6 +29,10 @@ function user(state = {
         jwt: null,
         info: null
       };
+    case SET_JWT:
+      return Object.assign({}, state, {
+        jwt: action.jwt
+      });
     default:
       return state;
   }

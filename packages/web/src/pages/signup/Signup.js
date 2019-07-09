@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signinUser } from '../store/actions';
+import { signupUser } from '@/store/actions';
 
-class LoginPage extends Component {
+class SignupPage extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    name: ''
+  }
+
+  componentDidMount() {
+    document.title = 'Stock Watch | Sign Up';
   }
 
   onSubmit = (e) => {
     e.preventDefault();
 
     let email = this.state.email;
+    let name = this.state.name;
     let password = this.state.password;
 
     let user = {
@@ -21,7 +27,7 @@ class LoginPage extends Component {
       password
     };
 
-    this.props.dispatchSigninUser(user);
+    this.props.dispatchSignupUser(user);
   }
 
   onChange = (e) => {
@@ -37,11 +43,14 @@ class LoginPage extends Component {
           <input name='email' 
             placeholder='email'
             onChange={this.onChange} />
+          <input name='name' 
+            placeholder='name'
+            onChange={this.onChange} />
           <input name='password' 
             placeholder='password'
             type='password'
             onChange={this.onChange} />
-          <button>Login</button>
+          <button>Submit</button>
         </form>
       </div>
     );
@@ -51,10 +60,10 @@ class LoginPage extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchSigninUser: user => {
-      dispatch(signinUser(user));
+    dispatchSignupUser: user => {
+      dispatch(signupUser(user));
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(SignupPage);

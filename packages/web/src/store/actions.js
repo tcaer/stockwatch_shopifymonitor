@@ -9,17 +9,10 @@ export function fetchUser() {
 }
 
 export const RECEIVE_USER = 'RECEIVE_USER';
-export function receiveUser(user, jwt) {
-  if (jwt) {
-    localStorage.setItem('jwt', jwt);
-  } else {
-    localStorage.removeItem('jwt');
-  }
-
+export function receiveUser(user) {
   return {
     type: RECEIVE_USER,
-    user,
-    jwt
+    user
   };
 }
 
@@ -30,6 +23,16 @@ export function logoutUser() {
   return {
     type: LOGOUT_USER
   };
+}
+
+export const SET_JWT = 'SET_JWT';
+export function setJWT(jwt) {
+  localStorage.setItem('jwt', jwt);
+
+  return {
+    type: SET_JWT,
+    jwt: jwt
+  }
 }
 
 /*
@@ -44,6 +47,7 @@ export function initializeUser() {
       const jwt = localStorage.getItem('jwt');
 
       if (jwt != null) {
+        dispatch(setJWT(jwt));
         dispatch(fetchUser());
 
         return fetch('http://localhost:3000/@me', {
@@ -57,15 +61,15 @@ export function initializeUser() {
           .then(response => response.json(), error => console.error(error))
           .then(json => {
             if (json.success) {
-              dispatch(receiveUser(json.user, jwt));
+              dispatch(receiveUser(json.user));
             } else {
-              dispatch(receiveUser(null, null));
+              dispatch(logoutUser());
             }
 
             resolve();
           })
       } else {
-        dispatch(receiveUser(null, null));
+        dispatch(logoutUser());
         resolve();
       }
     });
@@ -87,7 +91,10 @@ export function signupUser(user) {
     })
       .then(response => response.json(), error => console.error(error))
       .then(json => {
-        if (json.success) return dispatch(receiveUser(json.user, json.jwt));
+        if (json.success) {
+          dispatch(setJWT(json.jwt));
+          return dispatch(receiveUser(json.user));
+        };
       });
   }
 }
@@ -107,7 +114,10 @@ export function signinUser(user) {
     })
       .then(response => response.json(), error => console.error(error))
       .then(json => {
-        if (json.success) return dispatch(receiveUser(json.user, json.jwt));
+        if (json.success) {
+          dispatch(setJWT(json.jwt));
+          setTimeout(() => dispatch(receiveUser(json.user)), 0);
+        };
       });
   }
 }

@@ -12,7 +12,12 @@ module.exports = merge(common, {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          { 
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
           'sass-loader'
         ]
       }

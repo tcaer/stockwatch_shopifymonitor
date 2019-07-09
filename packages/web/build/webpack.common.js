@@ -6,7 +6,10 @@ const path = require('path');
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
   resolve: {
-    extensions: ['.js', '.jsx', '.scss']
+    extensions: ['.js', '.jsx', '.scss'],
+    alias: {
+      '@': path.resolve(__dirname, '../src')
+    }
   },
   output: {
     filename: '[hash].bundle.js',
@@ -69,7 +72,7 @@ module.exports = {
                 speed: 4,
               },
             },
-          }
+          },
         ]
       }
     ]
