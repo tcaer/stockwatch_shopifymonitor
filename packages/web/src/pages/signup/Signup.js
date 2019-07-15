@@ -9,13 +9,29 @@ class SignupPage extends Component {
 
   state = {
     firstName: '',
+    firstNameValid: false,
     lastName: '',
+    lastNameValid: false,
     email: '',
+    emailValid: false,
+    password: '',
+    passwordValid: false,
+    passwordConfirm: '',
+    passwordConfirmValid: false,
     hasFocus: {
       firstName: false,
       lastName: false,
-      email: false
-    }
+      email: false,
+      password: false,
+      passwordConfirm: false
+    },
+    formErrors: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
+    },
+    formValid: false
   }
 
   componentDidMount() {
@@ -38,10 +54,58 @@ class SignupPage extends Component {
     this.props.dispatchSignupUser(user);
   }
 
+  validateForm = () => {
+    this.setState({formValid: this.state.firstNameValid && this.state.lastNameValid
+      && this.state.emailValid && this.state.passwordValid && this.state.passwordConfirmValid});
+  }
+
+  validateField = (fieldName, value) => {
+    let fieldValdiationErrors = this.state.formErrors;
+    let firstNameValid = this.state.firstNameValid;
+    let lastNameValid = this.state.lastNameValid;
+    let emailValid = this.state.emailValid;
+    let passwordValid = this.state.passwordValid;
+    let passwordConfirmValid = this.state.passwordConfirmValid;
+
+    switch (fieldName) {
+      case 'firstName':
+        firstNameValid = value.length > 0;
+        fieldValdiationErrors.firstName = firstNameValid ? '' : ' is invalid';
+        break;
+      case 'lastName':
+        lastNameValid = value.length > 0;
+        fieldValdiationErrors.lastName = lastNameValid ? '' : ' is invalid';
+        break;
+      case 'email':
+        emailValid = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(value);
+        fieldValdiationErrors.email = emailValid ? '' : ' is invalid';
+        break;
+      case 'password':
+        passwordValid = value.length >= 6;
+        fieldValdiationErrors.password = passwordValid ? '' : ' is too short';
+        break;
+      case 'passwordConfirm':
+        passwordConfirmValid = this.state.password == value && this.state.passwordValid;
+        fieldValdiationErrors.password = passwordConfirmValid ? '' : ' passwords do not match';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({formErrors: fieldValdiationErrors,
+      firstNameValid,
+      lastNameValid,
+      emailValid,
+      passwordValid,
+      passwordConfirmValid}, this.validateForm)
+  }
+
   onChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    const name = e.target.name;
+    const value = e.target.value;
+
+    this.setState({[name]: value},
+      () => this.validateField(name, value));
   }
 
   toggleFocus = (fieldName, value) => {
@@ -56,6 +120,12 @@ class SignupPage extends Component {
         break;
       case 'email':
         hasFocus.email = value;
+        break;
+      case 'password':
+        hasFocus.password = value;
+        break;
+      case 'passwordConfirm':
+        hasFocus.passwordConfirm = value;
         break;
       default:
         break;
@@ -120,12 +190,36 @@ class SignupPage extends Component {
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               value={this.email} />
-           </div>
-          <input name='password' 
-            placeholder='password'
-            type='password'
-            onChange={this.onChange} />
-          <button className={styles.submit_button}>Submit</button>
+          </div>
+          <div className={styles.input_container}>
+            <div className={styles.input_block
+              + ' ' + styles.half
+              + ' ' + (this.state.hasFocus.password ? styles.has_focus : '')}>
+              <label>Password</label>
+              <div className={styles.input_bar}></div>
+              <input name='password' 
+                placeholder='Password'
+                type='password'
+                onChange={this.onChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                value={this.state.password} />
+            </div>
+            <div className={styles.input_block
+              + ' ' + styles.half
+              + ' ' + (this.state.hasFocus.passwordConfirm ? styles.has_focus : '')}>
+              <div className={styles.input_bar}></div>
+              <input name='passwordConfirm' 
+                placeholder='Confirm password'
+                type='password'
+                onChange={this.onChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                value={this.state.passwordConfirm} />
+            </div>
+          </div>
+          <button className={styles.submit_button}
+            disabled={!this.state.formValid}>Submit</button>
         </form>
         <div className={styles.redirect}>
           Already have an account? Log in <Link to='/login'>here</Link>.

@@ -24,8 +24,6 @@ class LoginPage extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(this.state);
-
     let email = this.state.email;
     let password = this.state.password;
 
@@ -63,15 +61,14 @@ class LoginPage extends Component {
     }
 
     this.setState({formErrors: fieldValdiationErrors, 
-      emailValid: emailValid, 
-      passwordValid: passwordValid}, 
+      emailValid, 
+      passwordValid}, 
       this.validateForm);
   }
 
   onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-
 
     this.setState({[name]: value},
       () => this.validateField(name, value));

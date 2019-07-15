@@ -73,6 +73,7 @@ input, button {
     resize: none;
     position: relative;
     outline: 0;
+    font-weight: 300;
 
     &:focus {
       background-color: #f9f9fe;
@@ -96,7 +97,6 @@ input, button {
   background-color: #202020;
   border: none;
   width: 100%;
-  max-width: 440px;
   color: #fff;
   font-size: 14px;
   cursor: pointer;
