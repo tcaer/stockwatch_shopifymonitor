@@ -50,7 +50,7 @@ export function initializeUser() {
         dispatch(setJWT(jwt));
         dispatch(fetchUser());
 
-        return fetch('http://localhost:3000/@me', {
+        return fetch('http://localhost:3000/user/get', {
           method: 'GET',
           mode: 'cors',
           credentials: 'same-origin',

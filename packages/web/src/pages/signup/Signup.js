@@ -42,16 +42,20 @@ class SignupPage extends Component {
     e.preventDefault();
 
     let email = this.state.email;
-    let name = this.state.name;
+    let firstName = this.state.firstName;
+    let lastName = this.state.lastName;
     let password = this.state.password;
 
     let user = {
       email,
-      name,
+      firstName,
+      lastName,
       password
     };
 
-    this.props.dispatchSignupUser(user);
+    if (this.state.formValid) {
+      this.props.dispatchSignupUser(user);
+    }
   }
 
   validateForm = () => {
