@@ -6,7 +6,7 @@
 
   h2 {
     font-size: 2.2rem;
-    font-family: 'bt_mono', monospace;
+    font-family: 'bt_mono', 'Courier New', monospace;
     font-weight: 600;
     line-height: 3rem;
     margin-bottom: 3rem;
@@ -59,20 +59,16 @@ input, button {
     position: absolute;
     top: 6px;
     z-index: 2;
-    font-family: 'bt_mono', Courier New, monospace, serif;
+    font-family: 'bt_mono', 'Courier New', monospace, serif;
   }
   input {
-    background: transparent;
-    border: 0;
     display: block;
     font-size: 16px;
     line-height: 36px;
     padding: 42px 0 6px 12px;
     width: 100%;
     box-sizing: border-box;
-    resize: none;
     position: relative;
-    outline: 0;
     font-weight: 300;
 
     &:focus {
@@ -102,7 +98,7 @@ input, button {
   cursor: pointer;
   outline: 0;
   margin: 30px auto 0;
-  font-family: 'bt_mono', Courier New, monospace, serif;
+  font-family: 'bt_mono', 'Courier New', monospace, serif;
   padding: 1.2em 2.625em;
   transition: all 200ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
   outline: 0;

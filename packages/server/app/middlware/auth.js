@@ -8,7 +8,10 @@ module.exports = {
     try {
       const user = await User.findById(req.user._id);
 
-      if (user) return next();
+      if (user) {
+        req.user = user;
+        return next();
+      }
 
       res.sendStatus(401);
     } catch (err) {

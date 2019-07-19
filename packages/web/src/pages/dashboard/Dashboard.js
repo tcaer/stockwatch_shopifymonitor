@@ -1,20 +1,37 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '@/store/actions';
 
+import HeaderComponent from '../../components/header/Header';
+
+const Test = (props) => (
+  <p>Search!</p>
+)
+
 class DashboardPage extends Component {
 
+  componentDidMount() {
+    document.title = 'Stock Watch | Dashboard';
+  }
+
   render() {
-    if (this.props.user) {
+    return (
+      <>
+        <HeaderComponent />
+        <Route path={`${this.props.match.url}/search`} component={Test} />
+      </>
+    )
+    /*if (this.props.user) {
       return (
-        <div>
+        <>
           {this.props.user.email || ''}
           <button onClick={this.props.logoutUser}></button>
-        </div>
+        </>
       );
     }
 
-    return <div>loading...</div>
+    return <div>loading...</div>*/
   }
 
 }

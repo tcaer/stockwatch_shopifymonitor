@@ -1,0 +1,47 @@
+.header {
+  height: 69px;
+  width: 100%;
+  position: fixed;
+  background: #202020;
+}
+
+.header_inner {
+  width: 80%;
+  height: inherit;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.header_icon {
+  font-family: 'bt_mono', 'Courier New', monospace, serif;
+  color: #fff;
+  border-right: 1px solid #e6e6e6;
+  padding-right: 20px;
+}
+
+.search_container {
+  flex: 1;
+  height: inherit;
+
+  .input_container {
+    float: left;
+    position: relative;
+    height: inherit;
+    width: 100%;
+
+    input {
+      display: block;
+      font-size: 14px;
+      line-height: 69px;
+      padding-left: 12px;
+      color: #fff;
+      font-weight: 300;
+      width: 100%;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}

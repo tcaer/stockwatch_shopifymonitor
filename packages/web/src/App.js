@@ -33,8 +33,7 @@ class App extends Component {
           condition={!this.props.isLoggedIn}
           component={LoginPageLoadable}
           redirect='/@me' />
-        <GatedRoute exact
-          path='/@me'
+        <GatedRoute path='/@me'
           condition={this.props.isLoggedIn}
           component={DashboardPageLodable}
           redirect='/login' />
