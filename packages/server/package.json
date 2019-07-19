@@ -4,7 +4,8 @@
   "description": "stockwatch server",
   "main": "app/server.js",
   "scripts": {
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "start": "node ."
   },
   "author": "Tino Caer <tino.caer@me.com>",
   "license": "MIT",

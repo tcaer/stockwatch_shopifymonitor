@@ -42,30 +42,3 @@ for (let route in routes) {
 }
 
 app.listen(3000, () => console.log(`Server listening on 3000`));
-/*
-fastify.get('/@me', async (req, rep) => {
-  let authorizationHeader = req.headers.authorization;
-  let token = authorizationHeader.split(' ')[1];
-
-  try {
-    var decoded = jwt.verify(token, 'shhhhh');
-    
-    var user = await User.findById(decoded._id);
-
-    if (user) {
-      const rinsedUser = {
-        email: user.email,
-        name: user.name,
-        _id: user._id
-      };
-
-      return { user: rinsedUser, success: true };
-    } else {
-      return { success: false };
-    }
-  } catch (err) {
-    console.error(err);
-
-    return { success: false };
-  }
-});*/
