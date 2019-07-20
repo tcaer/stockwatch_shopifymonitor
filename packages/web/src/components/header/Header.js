@@ -9,13 +9,15 @@ class HeaderComponent extends Component {
   static defaultProps = {
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
+    billingValue: 0.00
   }
 
   state = {
     searchPlaceholder: '',
     platform: '',
-    searchValue: ''
+    searchValue: '',
+    showDropdown: false
   }
 
   componentDidMount() {
@@ -24,13 +26,13 @@ class HeaderComponent extends Component {
 
     if (platform.indexOf('Win') != -1) {
       platform = 'Windows';
-      searchPlaceholder += '(Ctrl + Enter)';
+      searchPlaceholder += '(Ctrl+Enter)';
     } else if (platform.indexOf('Mac') != -1) {
       platform = 'MacOS';
-      searchPlaceholder += '(Cmd + Enter)';
+      searchPlaceholder += '(Cmd+Enter)';
     } else if (platform.indexOf('Linux') != -1) {
       platform = 'Linux';
-      searchPlaceholder += '(Ctrl + Enter)';
+      searchPlaceholder += '(Ctrl+Enter)';
     }
 
     this.setState({platform, searchPlaceholder});
@@ -72,19 +74,25 @@ class HeaderComponent extends Component {
       <header className={styles.header}>
         <div className={styles.header_inner}>
           <Link to='/@me' className={styles.header_icon}>Stock Watch</Link>
+          <div className={styles.divider}></div>
           <div className={styles.search_container} 
             ref={(container) => this.searchContainer = container}>
             <div className={styles.input_container}>
-            <div className={styles.input_bar}></div>
               <input placeholder={this.state.searchPlaceholder}
                 ref={(input) => this.searchInput = input}
                 value={this.state.searchValue}
                 onChange={this.onSearchInputChange} />
             </div>
           </div>
-          
+          <div className={styles.quick_account_view}>
+            <Link to='/@me/account/billing' className={styles.usage_view}>
+              <h5>Billing</h5>
+              <span>${this.props.billingValue.toFixed(2)}</span>
+            </Link>
+            <div className={styles.divider}></div>
+            <Link to='/@me/account' className={styles.account_link}>Account</Link>
+          </div>
         </div>
-        { this.props.firstName }
       </header>
     );
   }

@@ -12,7 +12,7 @@ const SignupPageLoadable = Loadable({
 const LoginPageLoadable = Loadable({
   loader: () => import('./pages/login/Login'),
   loading: () => (<div>Loading...</div>)
-})
+});
 const DashboardPageLodable = Loadable({
   loader: () => import('./pages/dashboard/Dashboard'),
   loading: () => (<div>Loading...</div>)

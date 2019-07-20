@@ -16,8 +16,13 @@
 .header_icon {
   font-family: 'bt_mono', 'Courier New', monospace, serif;
   color: #fff;
-  border-right: 1px solid #e6e6e6;
-  padding-right: 20px;
+  padding-right: 12px;
+}
+
+.divider {
+  width: 1px;
+  height: 18px;
+  background: #e6e6e6;
 }
 
 .search_container {
@@ -43,5 +48,31 @@
         color: rgba(255, 255, 255, 0.8);
       }
     }
+  }
+}
+
+.quick_account_view {
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+  
+  .usage_view {
+    color: #fff;
+    padding-right: 12px;
+    text-align: center;
+
+    h5 {
+      font-family: 'bt_mono', Courier New, monospace, serif;
+      font-size: 15px;
+    }
+    span {
+      font-size: 13px;
+    }
+  }
+  .account_link {
+    color: #fff;
+    font-family: 'bt_mono', Courier New, monospace, serif;
+    padding-left: 12px;
   }
 }

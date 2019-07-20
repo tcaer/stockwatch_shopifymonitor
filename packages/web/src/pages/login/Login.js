@@ -126,7 +126,7 @@ class LoginPage extends Component {
             <label>Password</label>
             <div className={styles.input_bar}></div>
             <input name='password' 
-              placeholder='Something secure'
+              placeholder='Password'
               type='password'
               onChange={this.onChange}
               onFocus={this.onFocus}

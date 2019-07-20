@@ -18,20 +18,12 @@ class DashboardPage extends Component {
   render() {
     return (
       <>
-        <HeaderComponent />
+        <HeaderComponent firstName={this.props.user.firstName || null}
+          lastName={this.props.user.lastName || null}
+          email={this.props.user.email || null} />
         <Route path={`${this.props.match.url}/search`} component={Test} />
       </>
-    )
-    /*if (this.props.user) {
-      return (
-        <>
-          {this.props.user.email || ''}
-          <button onClick={this.props.logoutUser}></button>
-        </>
-      );
-    }
-
-    return <div>loading...</div>*/
+    );
   }
 
 }

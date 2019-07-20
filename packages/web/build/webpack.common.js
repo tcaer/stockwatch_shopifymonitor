@@ -83,7 +83,7 @@ module.exports = {
       template: path.resolve(__dirname, '../src/index.html'),
       minify: {
         collapseWhitespace: true,
-        removeComments: true
+        removeComments: false
       }
     }),
     new CleanWebpackPlugin.CleanWebpackPlugin()
