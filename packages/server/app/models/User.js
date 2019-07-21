@@ -19,6 +19,10 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   }
+}, {
+  timestamps: {
+    createdAt: 'created_at'
+  }
 });
 
 UserSchema.pre('save', function(next) {

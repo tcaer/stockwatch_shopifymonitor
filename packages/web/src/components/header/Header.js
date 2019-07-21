@@ -71,7 +71,7 @@ class HeaderComponent extends Component {
 
   render() {
     return (
-      <header className={styles.header}>
+      <nav className={styles.header}>
         <div className={styles.header_inner}>
           <Link to='/@me' className={styles.header_icon}>Stock Watch</Link>
           <div className={styles.divider}></div>
@@ -90,10 +90,10 @@ class HeaderComponent extends Component {
               <span>${this.props.billingValue.toFixed(2)}</span>
             </Link>
             <div className={styles.divider}></div>
-            <Link to='/@me/account' className={styles.account_link}>Account</Link>
+            <Link to='/@me/account/profile' className={styles.account_link}>Account</Link>
           </div>
         </div>
-      </header>
+      </nav>
     );
   }
 

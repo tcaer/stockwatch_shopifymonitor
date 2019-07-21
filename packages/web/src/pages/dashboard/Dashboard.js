@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '@/store/actions';
+import Loadable from 'react-loadable';
 
-import HeaderComponent from '../../components/header/Header';
+import HeaderComponent from '@/components/header/Header';
 
-const Test = (props) => (
-  <p>Search!</p>
-)
+const AccountPageLoadable = Loadable({
+  loader: () => import('../account/Account'),
+  loading: () => (<div>...loading</div>)
+});
 
 class DashboardPage extends Component {
 
@@ -21,7 +22,7 @@ class DashboardPage extends Component {
         <HeaderComponent firstName={this.props.user.firstName || null}
           lastName={this.props.user.lastName || null}
           email={this.props.user.email || null} />
-        <Route path={`${this.props.match.url}/search`} component={Test} />
+        <Route path={`${this.props.match.url}/account`} component={AccountPageLoadable} />
       </>
     );
   }
@@ -30,14 +31,8 @@ class DashboardPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.info
+    user: state.user.info || {}
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    logoutUser: () => dispatch(logoutUser())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, null)(DashboardPage);

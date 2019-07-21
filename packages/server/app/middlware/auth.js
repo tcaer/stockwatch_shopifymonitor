@@ -3,7 +3,7 @@ const User = require('../models/User');
 module.exports = {
 
   isUserAuthenticated: async function(req, res, next) {
-    if (!req.user) return res.sendStatus(401);
+    if (!req.user) return res.json({success: false});
 
     try {
       const user = await User.findById(req.user._id);
@@ -13,11 +13,11 @@ module.exports = {
         return next();
       }
 
-      res.sendStatus(401);
+      return res.json({success: false});
     } catch (err) {
       console.error(err);
 
-      res.sendStatus(401);
+      return res.json({success: false});
     }
   }
 
