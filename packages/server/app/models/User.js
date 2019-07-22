@@ -18,6 +18,11 @@ var UserSchema = new mongoose.Schema({
   lastName: {
     type: String,
     required: true
+  },
+  maxMonitors: {
+    type: String,
+    required: false,
+    default: 5
   }
 }, {
   timestamps: {

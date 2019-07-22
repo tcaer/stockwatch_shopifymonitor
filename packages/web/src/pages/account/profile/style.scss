@@ -1,0 +1,44 @@
+.main {
+  display: block;
+}
+
+.box {
+  border: solid 2px #e6e6e6;
+  padding: 20px 30px;
+  margin-bottom: 28px;
+}
+
+.profile_box, .password_box, .deactivate_box {
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+  display: flex;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 20px;
+    color: #444;
+  }
+  p {
+    font-size: 13px;
+    color: #666;
+    padding-top: 8px;
+  }
+}
+
+.action_button {
+  border: 0;
+  cursor: pointer;
+  background-color: #202020;
+  color: #fff;
+  padding: 0.8em 1.425em;
+  font-family: 'bt_mono', 'Courier New', monospace, serif;
+  transition: background-color 200ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  outline: 0;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #154eff;
+  }
+  &.red:hover {
+    background-color: #ED4F32;
+  }
+}

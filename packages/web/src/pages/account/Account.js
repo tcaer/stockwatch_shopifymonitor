@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Loadable from 'react-loadable';
 import { logoutUser } from '@/store/actions';
 
 import styles from './style.scss';
+
+const ProfilePageLoadable = Loadable({
+  loader: () => import('./profile/Profile'),
+  loading: () => (<div>...loading</div>)
+})
 
 class AccountPage extends Component {
 
@@ -19,9 +25,7 @@ class AccountPage extends Component {
           <NavLink to='/@me/account/billing' activeClassName={styles.active}>Billing</NavLink>
           <NavLink to='/@me/account/referrals' activeClassName={styles.active}>Referrals</NavLink>
         </section>
-        <section>
-          <Route path={`${this.props.match.url}/profile`} component={() => <div></div>} />
-        </section>
+        <Route path={`${this.props.match.url}/profile`} component={ProfilePageLoadable} />
       </main>
     );
   }
