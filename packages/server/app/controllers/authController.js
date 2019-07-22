@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const env = require('../../config/env');
+const stripe = require('stripe')(env.stripe);
 const User = require('../models/User');
 
 module.exports = {
@@ -14,13 +16,35 @@ module.exports = {
     });
 
     try {
+      let customer = await stripe.customers.create({
+        description: `Customer for ${body.email}`,
+        email: body.email,
+        name: `${body.firstName} ${body.lastName}`
+      });
+
+      let subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        items: [
+          {
+            plan: 'plan_FU2dkxEtutY2GG'
+          }
+        ]
+      });
+
+      user.stripeId = customer.id;
+      user.subscriptionId = subscription.id;
+
       await user.save();
 
       const rinsedUser = user.toObject();
+
       delete rinsedUser.password;
+      delete user.stripeId;
+      delete user.subscriptionId;
+      
       let token = jwt.sign(rinsedUser, 'shhhhh');
       
-      res.json({user: rinsedUser, jwt: token, success: true});
+      res.json({jwt: token, success: true});
     } catch (err) {
       console.error(err);
 
@@ -37,11 +61,14 @@ module.exports = {
       if (user) {
         if (await user.comparePassword(body.password)) {
           const rinsedUser = user.toObject();
+
           delete rinsedUser.password;
+          delete user.stripeId;
+          delete user.subscriptionId;
 
           const token = jwt.sign(rinsedUser, 'shhhhh');
 
-          res.json({user: rinsedUser, jwt: token, success: true});
+          res.json({jwt: token, success: true});
         } else {
           res.json({success: false, message: 'No email/password combo found'});
         }

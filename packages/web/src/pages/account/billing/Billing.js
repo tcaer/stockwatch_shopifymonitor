@@ -11,10 +11,10 @@ class BillingPage extends Component {
         <div className={styles.box}>
           <div>
             <h3>Current amount due</h3>
-            <p>Your primary card will be charged on the first of every month</p>
+            <p>Your primary card will be charged once every month</p>
           </div>
           <div>
-            <h3>${parseInt(this.props.user.balance).toFixed(2)}</h3>
+            <h3>${this.props.user.balance.toFixed(2)}</h3>
           </div>
         </div>
         <div className={styles.box}>

@@ -41,16 +41,9 @@ export function setJWT(jwt) {
 * way it knows what routes can be shown. All other things can wait to be downloaded because they
 * aren't critical to the function of the application. This is the only exception to that.
 */
-export function initializeUser() {
-  return function(dispatch) {
-    return new Promise((resolve, reject) => {
-      const jwt = localStorage.getItem('jwt');
-
-      if (jwt != null) {
-        dispatch(setJWT(jwt));
-        dispatch(fetchUser());
-
-        return fetch('http://localhost:3000/user/get', {
+function getUser(jwt) {
+  return new Promise((resolve, reject) => {
+    return fetch('http://localhost:3000/user/get', {
           method: 'GET',
           mode: 'cors',
           credentials: 'same-origin',
@@ -59,15 +52,39 @@ export function initializeUser() {
           }
         })
           .then(response => response.json(), error => console.error(error))
-          .then(json => {
-            if (json.success) {
-              dispatch(receiveUser(json.user));
+          .then(({success, user}) => {
+            if (success) {
+              return resolve(user);
+            }
+
+            resolve(null);
+          });
+  });
+}
+
+export function initializeUser() {
+  return function(dispatch) {
+    return new Promise((resolve, reject) => {
+      const jwt = localStorage.getItem('jwt');
+
+      if (jwt != null) {
+        dispatch(setJWT(jwt));
+        dispatch(fetchUser());
+        
+        return getUser(jwt)
+          .then(user => {
+            if (user) {
+              dispatch(receiveUser(user));
             } else {
               dispatch(logoutUser());
             }
 
             resolve();
-          })
+          }).catch(err => {
+            console.error(err);
+            dispatch(logoutUser());
+            resolve();
+          });
       } else {
         dispatch(logoutUser());
         resolve();
@@ -90,10 +107,21 @@ export function signupUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json(), error => console.error(error))
-      .then(json => {
-        if (json.success) {
-          dispatch(setJWT(json.jwt));
-          return dispatch(receiveUser(json.user));
+      .then(({success, jwt}) => {
+        if (success) {
+          dispatch(setJWT(jwt));
+
+          return getUser(jwt)
+            .then(user => {
+              if (user) {
+                dispatch(receiveUser(user));
+              } else {
+                dispatch(logoutUser());
+              }
+            }).catch(err => {
+              console.error(err);
+              dispatch(logoutUser());
+            });
         };
       });
   }
@@ -113,10 +141,21 @@ export function signinUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json(), error => console.error(error))
-      .then(json => {
-        if (json.success) {
-          dispatch(setJWT(json.jwt));
-          setTimeout(() => dispatch(receiveUser(json.user)), 0);
+      .then(({success, jwt}) => {
+        if (success) {
+          dispatch(setJWT(jwt));
+          
+          return getUser(jwt)
+            .then(user => {
+              if (user) {
+                dispatch(receiveUser(user));
+              } else {
+                dispatch(logoutUser());
+              }
+            }).catch(err => {
+              console.error(err);
+              dispatch(logoutUser());
+            });
         };
       });
   }

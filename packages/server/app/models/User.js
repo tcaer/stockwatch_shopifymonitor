@@ -24,10 +24,13 @@ var UserSchema = new mongoose.Schema({
     required: false,
     default: 5
   },
-  balance: {
+  stripeId: {
     type: String,
-    required: true,
-    default: 0.00
+    required: true
+  },
+  subscriptionId: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: {
