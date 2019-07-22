@@ -9,7 +9,11 @@ import styles from './style.scss';
 const ProfilePageLoadable = Loadable({
   loader: () => import('./profile/Profile'),
   loading: () => (<div>...loading</div>)
-})
+});
+const BillingPageLoadable = Loadable({
+  loader: () => import('./billing/Billing'),
+  loading: () => (<div>Loading...</div>)
+});
 
 class AccountPage extends Component {
 
@@ -26,6 +30,7 @@ class AccountPage extends Component {
           <NavLink to='/@me/account/referrals' activeClassName={styles.active}>Referrals</NavLink>
         </section>
         <Route path={`${this.props.match.url}/profile`} component={ProfilePageLoadable} />
+        <Route path={`${this.props.match.url}/billing`} component={BillingPageLoadable} />
       </main>
     );
   }

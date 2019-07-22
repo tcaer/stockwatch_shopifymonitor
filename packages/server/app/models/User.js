@@ -23,6 +23,11 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: false,
     default: 5
+  },
+  balance: {
+    type: String,
+    required: true,
+    default: 0.00
   }
 }, {
   timestamps: {

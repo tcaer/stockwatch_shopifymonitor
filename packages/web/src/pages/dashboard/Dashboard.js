@@ -21,7 +21,8 @@ class DashboardPage extends Component {
       <>
         <HeaderComponent firstName={this.props.user.firstName || null}
           lastName={this.props.user.lastName || null}
-          email={this.props.user.email || null} />
+          email={this.props.user.email || null}
+          billingValue={this.props.user.balance || null} />
         <Route path={`${this.props.match.url}/account`} component={AccountPageLoadable} />
       </>
     );

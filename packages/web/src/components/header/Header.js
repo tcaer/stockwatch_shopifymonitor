@@ -87,7 +87,7 @@ class HeaderComponent extends Component {
           <div className={styles.quick_account_view}>
             <Link to='/@me/account/billing' className={styles.usage_view}>
               <h5>Billing</h5>
-              <span>${this.props.billingValue.toFixed(2)}</span>
+              <span>${parseInt(this.props.billingValue).toFixed(2)}</span>
             </Link>
             <div className={styles.divider}></div>
             <Link to='/@me/account/profile' className={styles.account_link}>Account</Link>

@@ -9,7 +9,7 @@ class ProfilePage extends Component {
     const memberSince = new Date(this.props.user.created_at);
     return (
       <section className={styles.main}>
-        <div className={styles.box + ' ' + styles.profile_box}>
+        <div className={styles.box}>
           <div>
             <h3>{this.props.user.firstName} {this.props.user.lastName}</h3>
             <p>Email: {this.props.user.email} </p>
@@ -20,7 +20,7 @@ class ProfilePage extends Component {
             <button className={styles.action_button}>Edit Profile</button>
           </div>
         </div>
-        <div className={styles.box + ' ' + styles.password_box}>
+        <div className={styles.box}>
           <div>
             <h3>Password</h3>
             <p>•••••••••••••</p>
@@ -29,7 +29,7 @@ class ProfilePage extends Component {
             <button className={styles.action_button}>Reset Password</button>
           </div>
         </div>
-        <div className={styles.box + ' ' + styles.deactivate_box}>
+        <div className={styles.box}>
           <div>
             <h3>Deactivate Account</h3>
             <p>This will fully delete your account from our system.</p>
